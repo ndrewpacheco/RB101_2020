@@ -1,0 +1,38 @@
+START start of the program
+SET sets a variable we can use for later
+GET retrieve input from user
+PRINT displays output to user
+READ  retrieve value from variable
+IF / ELSE IF / ELSE show conditional branches in logic
+WHILE show looping logic
+END end of the program
+
+
+a method that returns the sum of two integers
+
+START
+
+GET number 1
+GET number 2
+PRINT number one plus number 2
+
+-----
+
+a method that takes an array of strings, and returns a string that is all those strings concatenated together:
+
+given an array of strings named arr
+SET a variable named new_string to an empty string
+WHILE going through each string in arr, push the string onto new_string
+PRINT new_string
+
+-----
+
+a method that takes an array of integers, and returns a new array with every other element
+No need to code here, just practice writing logic out in English.
+
+given an array of integers,
+
+select the element of the array IF the index of each element of the array is odd, 
+PRINT the new array
+
+
