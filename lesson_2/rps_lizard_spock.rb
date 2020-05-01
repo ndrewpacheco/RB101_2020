@@ -1,10 +1,13 @@
-VALID_CHOICES = ["Rock", "Paper", "Scissors"]
+VALID_CHOICES = ["Rock", "Paper", "Scissors", "Lizard", "Spock"]
 
 WINNING_COMBOS = {
 
-  "Rock" => "Scissors",
-  "Paper" => "Rock",
-  "Scissors" => "Paper"
+  "Rock" => ["Scissors", "Spock"],
+  "Paper" => ["Rock", "Spock" ],
+  "Scissors" => ["Paper", "Lizard"],
+  "Lizard" => ["Spock", "Paper"],
+  "Spock" => ["Scissors", "Rock"]
+
 }
 
 def prompt(message)
@@ -12,7 +15,7 @@ def prompt(message)
 end
 
 def player_wins?(choice, computer_choice)
-  WINNING_COMBOS[choice] == computer_choice
+  WINNING_COMBOS[choice].any?(computer_choice)
 end
 
 def display_results(choice, computer_choice)

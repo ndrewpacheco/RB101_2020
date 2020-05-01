@@ -1,0 +1,17 @@
+B - y
+C - y
+ABD - y
+D - y
+B - y
+D - n
+BCD - y
+B - y
+C - y
+ACD - n
+C  - y
+ABCD - n
+ABD - y
+BC - n
+C - y
+D - y
+A - y
