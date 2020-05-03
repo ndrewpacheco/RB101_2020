@@ -25,8 +25,9 @@ p factors(-12)
 
 # Bonus 1
 # What is the purpose of the number % divisor == 0 ?
+  # if when we divide th number by the divisor and get a remainder of 0, it is proven true that the divisor is a factor
 
 # Bonus 2
 # What is the purpose of the second-to-last line (line 8) in the method (the factors before the method's end)?
-
+  # to make sure that the method's return value is the factor array
 # Solution 3
