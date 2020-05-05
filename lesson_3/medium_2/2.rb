@@ -17,7 +17,9 @@ def fun_with_ids
 
   an_illustrative_method(a_outer, b_outer, c_outer, d_outer, a_outer_id, b_outer_id, c_outer_id, d_outer_id)
 
-  puts "will have different id's"
+  puts "will have different id's" 
+  # wrong
+  # the method only accepts values as parameters. Names we give those values in the method def are seperate any other uses of the same name.
 
   puts "a_outer is #{a_outer} with an id of: #{a_outer_id} BEFORE and: #{a_outer.object_id} AFTER the method call."
   puts "b_outer is #{b_outer} with an id of: #{b_outer_id} BEFORE and: #{b_outer.object_id} AFTER the method call."
