@@ -26,14 +26,18 @@ p upper_snake(sentence) # => 'TheSkyWasBlue'
 # 7)C 6
 # 8)BD 7
 # 9)BD n
-# 10)ABC 
-# 11)BC
-# 12)B
-# 13 B
-# 14 C
-# 15 A
-# 16 AC
-# 17 
+# 10)ABC n
+# 11)BC 8
+# 12)B 9
+# 13 B n
+# 14 C 10
+# 15 A 11
+# 16 AC 12
+# 17 D 13
+# 18 ABC 14
+# 19 BCD n
+# 20 CD n
+
 
 
 
