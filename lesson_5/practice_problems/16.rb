@@ -13,7 +13,6 @@ HEXA_SECTIONS = [8,4,4,4,12]
 def uuid
 
   new_uuid = []
-# 8-4-4-4-12
 
   HEXA_SECTIONS.each do |section|
 
