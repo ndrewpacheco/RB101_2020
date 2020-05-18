@@ -69,10 +69,53 @@ def player_places_piece!(brd)
   end
   brd[square] = PLAYER_MARKER
 end
+# brd.values_at(*line).count(marker) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+def square_at_risk?
+
+end 
+
+
+def possible_winning_line(brd, marker)
+  WINNING_LINES.select do |line|
+     brd.values_at(*line).count(marker) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+  end.first
+
+end
+
+def immediate_threat?(brd, marker)
+  WINNING_LINES.each do |line|
+    return true if brd.values_at(*line).count(marker) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+  end
+  false
+end
+
+def protect_threat(brd)
+
+  # winning_line = WINNING_LINES.select do |line|
+  #                 brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
+  #                end.first
+
+  possible_winning_line(brd, PLAYER_MARKER).each { |num| brd[num] = COMPUTER_MARKER if brd[num] == INITIAL_MARKER }
+end
+
+
+def find_winning_square(brd)
+  
+
+  possible_winning_line(brd, COMPUTER_MARKER).each { |num| brd[num] = COMPUTER_MARKER if brd[num] == INITIAL_MARKER }
+end
 
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
-  brd[square] = COMPUTER_MARKER
+  
+  if immediate_threat?(brd, COMPUTER_MARKER)
+    find_winning_square(brd)
+
+  elsif immediate_threat?(brd, PLAYER_MARKER)
+    protect_threat(brd)
+  else
+    square = empty_squares(brd).sample
+    brd[square] = COMPUTER_MARKER
+  end
 end
 
 def board_full?(brd)
@@ -90,29 +133,55 @@ def detect_winner(brd)
     return "Player" if test_array.all?(PLAYER_MARKER)
     return "Computer" if test_array.all?(COMPUTER_MARKER)
   end
-
   nil
 end
 
-loop do
-  board = init_board
-  display_board(board)
+
+
+loop do 
+
+  computer_score = 0
+  player_score = 0
+  winner = ""
 
   loop do
+    board = init_board
     display_board(board)
-    player_places_piece!(board)
 
-    break if someone_won?(board) || board_full?(board)
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    loop do
+
+      display_board(board)
+      player_places_piece!(board)
+
+      break if someone_won?(board) || board_full?(board)
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
+
+
+    player_score += 1 if detect_winner(board) == "Player"
+    player_score += 1 if detect_winner(board) == "Computer"
+
+
+    display_board(board)
+
+
+    if someone_won?(board)
+      prompt "#{detect_winner(board)} won the round!"
+    else
+      prompt "It's a tie!"
+    end
+
+    if computer_score == 2 || player_score == 2
+      winner = detect_winner(board)
+      break
+    end
+
+    prompt "press any key to continue"
+    any_key = gets.chomp
   end
 
-  display_board(board)
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
-  else
-    prompt "It's a tie!"
-  end
+  prompt "#{winner} won the game!"
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?("y")
