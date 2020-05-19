@@ -70,9 +70,6 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 # brd.values_at(*line).count(marker) == 2 && brd.values_at(*line).count(INITIAL_MARKER) == 1
-def square_at_risk?
-
-end 
 
 
 def possible_winning_line(brd, marker)
@@ -100,8 +97,6 @@ end
 
 
 def find_winning_square(brd)
-  
-
   possible_winning_line(brd, COMPUTER_MARKER).each { |num| brd[num] = COMPUTER_MARKER if brd[num] == INITIAL_MARKER }
 end
 
@@ -112,6 +107,8 @@ def computer_places_piece!(brd)
 
   elsif immediate_threat?(brd, PLAYER_MARKER)
     protect_threat(brd)
+  elsif brd[5] == INITIAL_MARKER
+    brd[5] = COMPUTER_MARKER
   else
     square = empty_squares(brd).sample
     brd[square] = COMPUTER_MARKER

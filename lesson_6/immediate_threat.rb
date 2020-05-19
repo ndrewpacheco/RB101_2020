@@ -18,12 +18,7 @@ def detect_winner(brd)
   nil
 end
 
-def immediate_threat?(brd)
-  WINNING_LINES.each do |line|
-    return true if brd.values_at(*line).count(PLAYER_MARKER) == 2
-  end
-  false
-end
+
 
 
 def computer_places_piece!(brd)
