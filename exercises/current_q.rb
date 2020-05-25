@@ -1,64 +1,64 @@
-# In the modern era under the Gregorian Calendar, leap years occur in every year
-# that is evenly divisible by 4,
-# unless the year is also divisible by 100.
+require 'pry'
+DIGITS = Hash[(0..9).to_a.zip('0'..'9').to_a]
 
-#If the year is evenly divisible by 100,
-#then it is not a leap year unless the year is evenly divisible by 400.
+# Convert a Number to a String!
+# In the previous two exercises,
+# you developed methods that convert simple numeric strings to signed Integers.
+# In this exercise and the next, you're going to reverse those methods.
 
-# Assume this rule is good for any year greater than year 0.
-#Write a method that takes any year greater than 0 as input,
-# and returns true if the year is a leap year, or false if it is not a leap year.
+# Write a method that takes a positive integer or zero,
+# and converts it to a string representation.
 
+# You may not use any of the standard conversion methods available in Ruby,
+# such as Integer#to_s, String(), Kernel#format, etc.
+# Your method should do this the old-fashioned way
+# and construct the string by analyzing and manipulating the number.
 
-
-def leap_year?(year)
-
-  # true if divisible by 4 - main algorithm
-  # if divisible by 4 and 100
-    # it is not a leap year unless year is divislbe by 400
-  #
+# Examples
 
 
 
-  # if year % 4 == 0
-  #   if year % 100 == 0
-  #     year % 400 == 0
-  #   else
-  #     true
-  #   end
-  # else
-  #   false
-  # end
-####
-  if year > 1752
-    if year % 4 == 0
-      if year % 100 == 0
-        year % 400 == 0
-      else
-        true
-      end
-    else
-      false
-    end
-  else
-    year % 4 == 0
+def integer_to_string(num)
+
+  str = ''
+  multiples_arr = []
+  multiple = 1
+
+  loop do
+    multiples_arr << multiple
+    multiple *= 10
+    break if num / multiple == 0
   end
+
+  multiples_arr.reverse.each do |mult|
+    digit = num / mult
+    num -= (digit * mult)
+    str << DIGITS[digit]
+  end
+str
+
 end
 
-p leap_year?(2016) == true
-p leap_year?(2015) == false
-p leap_year?(2100) == false
-p leap_year?(2400) == true
-p leap_year?(240000) == true
-p leap_year?(240001) == false
-p leap_year?(2000) == true
-p leap_year?(1900) == false
-p leap_year?(1752) == true
-p leap_year?(1700) == true
-p leap_year?(1) == false
-p leap_year?(100) == true
-p leap_year?(400) == true
+def signed_integer_to_string(num)
+
+  if num < 0
+    num *= -1
+    '-' + integer_to_string(num)
+  elsif num > 0
+    '+' + integer_to_string(num)
+  else
+    integer_to_string(num)
+
+  end
+
+end
 
 
+p signed_integer_to_string(4321) == '+4321'
+p signed_integer_to_string(-123) == '-123'
+p signed_integer_to_string(0) == '0'
 
+ p integer_to_string(4321) == '4321'
+ p integer_to_string(0) == '0'
+ p integer_to_string(5000) == '5000'
 
