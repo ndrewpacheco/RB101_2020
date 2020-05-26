@@ -1,64 +1,56 @@
-require 'pry'
-DIGITS = Hash[(0..9).to_a.zip('0'..'9').to_a]
 
-# Convert a Number to a String!
-# In the previous two exercises,
-# you developed methods that convert simple numeric strings to signed Integers.
-# In this exercise and the next, you're going to reverse those methods.
+MINUTES_IN_A_DAY = 1440
+MINUTES_IN_AN_HOUR = 60
 
-# Write a method that takes a positive integer or zero,
-# and converts it to a string representation.
+def time_of_day(num)
 
-# You may not use any of the standard conversion methods available in Ruby,
-# such as Integer#to_s, String(), Kernel#format, etc.
-# Your method should do this the old-fashioned way
-# and construct the string by analyzing and manipulating the number.
+  num += MINUTES_IN_A_DAY if num < 0
+  num %= MINUTES_IN_A_DAY if num > MINUTES_IN_A_DAY || num * -1 > MINUTES_IN_A_DAY
 
-# Examples
+  hrs = num / MINUTES_IN_AN_HOUR
+  mins =  num - ( hrs * MINUTES_IN_AN_HOUR )
 
-
-
-def integer_to_string(num)
-
-  str = ''
-  multiples_arr = []
-  multiple = 1
-
-  loop do
-    multiples_arr << multiple
-    multiple *= 10
-    break if num / multiple == 0
-  end
-
-  multiples_arr.reverse.each do |mult|
-    digit = num / mult
-    num -= (digit * mult)
-    str << DIGITS[digit]
-  end
-str
+  "#{format("%.2d", hrs)}:#{format("%.2d", mins)}"
 
 end
 
-def signed_integer_to_string(num)
+def after_midnight(time)
+   # "#{format("%.2d", hrs)}:#{format("%.2d", mins)}" #### "00:00"
+  hours = time[0,2].to_i
+  mins = time[3,2].to_i
+  total_mins = ( hours * MINUTES_IN_AN_HOUR ) + mins
 
-  if num < 0
-    num *= -1
-    '-' + integer_to_string(num)
-  elsif num > 0
-    '+' + integer_to_string(num)
-  else
-    integer_to_string(num)
 
-  end
+  total_mins % MINUTES_IN_A_DAY
 
 end
 
+def before_midnight(time)
+  hours = time[0,2].to_i
+  mins = time[3,2].to_i
+  total_mins = ( hours * MINUTES_IN_AN_HOUR ) + mins
 
-p signed_integer_to_string(4321) == '+4321'
-p signed_integer_to_string(-123) == '-123'
-p signed_integer_to_string(0) == '0'
+  total_mins %= MINUTES_IN_A_DAY
+  return total_mins if total_mins == 0
 
- p integer_to_string(4321) == '4321'
- p integer_to_string(0) == '0'
- p integer_to_string(5000) == '5000'
+  MINUTES_IN_A_DAY - total_mins
+  #mins
+end
 
+
+# p time_of_day(0)== "00:00"
+# p time_of_day(-3) == "23:57"
+# p time_of_day(35) == "00:35"
+# p time_of_day(-1437) == "00:03"
+# p time_of_day(3000) == "02:00"
+# p time_of_day(800) == "13:20"
+# p time_of_day(-4231) == "01:29"
+
+
+
+p after_midnight('00:00') == 0
+p before_midnight('00:00') == 0
+p after_midnight('12:34') == 754
+p before_midnight('12:34') == 686
+p after_midnight('24:00') == 0
+p before_midnight('24:00') == 0
