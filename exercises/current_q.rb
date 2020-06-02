@@ -1,25 +1,31 @@
-# Write a method that takes an Array of Integers between 0 and 19,
-# and returns an Array of those Integers sorted based on the English words
-# for each number:
-
-# zero, one, two, three, four, five, six, seven, eight, nine, ten,
-# eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+# Write a method that takes a string argument and returns a new string
+# that contains the value of the original string with
+# all consecutive duplicate characters collapsed into a single character.
+#You may not use String#squeeze or String#squeeze!.
 
 # Examples:
 
 
-NUMS = %w(zero, one, two, three, four, five, six, seven, eight, nine, ten,
-eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen)
+# compare n and n + 1
+# if they aren't the same then push n into new string
 
 
-def alphabetic_number_sort(arr)
 
-  new_arr = arr.map {|num| NUMS[num]}.sort
+def crunch(str)
+  new_str = ''
 
-  new_arr.map {|num| NUMS.index(num)}
+
+  str.chars.each_with_index do |char, idx|
+
+    new_str << char unless str[idx] == str[idx + 1]
+  end
+
+  new_str
 
 end
-p alphabetic_number_sort((0..19).to_a) == [
-  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
-  6, 16, 10, 13, 3, 12, 2, 0
-]
+
+p crunch('ddaaiillyy ddoouubbllee')# == 'daily double'
+p crunch('4444abcabccba') == '4abcabcba'
+p crunch('ggggggggggggggg') == 'g'
+p crunch('a') == 'a'
+p crunch('') == ''
