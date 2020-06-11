@@ -1,58 +1,36 @@
-# Cute angles
-# Write a method that takes a floating point number
-#that represents an angle between 0 and 360 degrees and
-# returns a String that represents that angle in degrees, minutes and seconds.
-#You should use a degree symbol (°) to represent degrees,
-#a single quote (') to represent minutes, and a double quote (") to represent seconds.
+# Fibonacci Number Location By Length
+# The Fibonacci series is a series of numbers
+#(1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition,
 
-#A degree has 60 minutes, while a minute has 60 seconds.
+# and each subsequent number is the sum of the two previous numbers.
+#  This series appears throughout the natural world.
 
-# Examples:
+# Computationally, the Fibonacci series is a very simple series,
+# but the results grow at an incredibly rapid rate.
+# For example, the 100th Fibonacci number is 354,224,848,179,261,915,075 -
+#that's enormous, especially considering that it takes 6 iterations before
+# it generates the first 2 digit number.
 
-
-# Note: your results may differ slightly depending on how you round values, but should be within a second or two of the results shown.
-
-# You should use two digit numbers with leading zeros when formatting the minutes and seconds, e.g., 321°03'07".
-
-# You may use this constant to represent the degree symbol:
-
-DEGREE = "\xC2\xB0"
-
-# format("%02d", 2)
+# Write a method that calculates and returns the index of
+# the first Fibonacci number that has the number of digits specified as an argument.
+# (The first Fibonacci number has index 1.)
 
 
-# go from degrees, to mins to secs
+def find_fibonacci_index_by_length(n)
+  org = [1,1]
 
-# for degrees, convert n into int
-
-# take it away from n
-# mins = n * 60
-
-
-
-  # mins_int
-def dms(n)
-  degree = n.to_i
-  mins = (n - degree ) * 60
-  mins_int = mins.to_i
-
-  seconds = ((mins - mins_int) * 60 ).to_i
-
-  "#{format("%02d", degree)}#{DEGREE}#{format("%02d", mins_int)}'#{format("%02d", seconds)}"
-
+  loop do
+    new_num = org[-1] + org[-2]
+    org << new_num
+    break if new_num.to_s.size == n
+  end
+  org.size
 end
 
-p dms(30) #== %(30°00'00")
-p dms(76.73) #== %(76°43'48")
-p dms(254.6) #== %(254°36'00")
-p dms(93.034773)# == %(93°02'05")
-p dms(0) #== %(0°00'00")
-p dms(360)# == %(360°00'00") || dms(360) == %(0°00'00")
-
-# p dms(30) == %(30°00'00")
-# p dms(76.73) == %(76°43'48")
-# p dms(254.6) == %(254°36'00")
-# p dms(93.034773) == %(93°02'05")
-# p dms(0) == %(0°00'00")
-# p dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
-
+p find_fibonacci_index_by_length(2) == 7          # 1 1 2 3 5 8 13
+p find_fibonacci_index_by_length(3) == 12         # 1 1 2 3 5 8 13 21 34 55 89 144
+p find_fibonacci_index_by_length(10) == 45
+p find_fibonacci_index_by_length(100) == 476
+p find_fibonacci_index_by_length(1000) == 4782
+# find_fibonacci_index_by_length(10000) == 47847
+# You may assume that the argument is always greater than or equal to 2.
