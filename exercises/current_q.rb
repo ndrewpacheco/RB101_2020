@@ -1,36 +1,23 @@
-# Fibonacci Number Location By Length
-# The Fibonacci series is a series of numbers
-#(1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition,
+# Write a method that takes an Array as an argument,
+# and returns two Arrays (as a pair of nested Arrays)
+# that contain the first half and second half of the original Array, respectively.
+# If the original array contains an odd number of elements,
+# the middle element should be placed in the first half Array.
 
-# and each subsequent number is the sum of the two previous numbers.
-#  This series appears throughout the natural world.
-
-# Computationally, the Fibonacci series is a very simple series,
-# but the results grow at an incredibly rapid rate.
-# For example, the 100th Fibonacci number is 354,224,848,179,261,915,075 -
-#that's enormous, especially considering that it takes 6 iterations before
-# it generates the first 2 digit number.
-
-# Write a method that calculates and returns the index of
-# the first Fibonacci number that has the number of digits specified as an argument.
-# (The first Fibonacci number has index 1.)
+# Examples:
 
 
-def find_fibonacci_index_by_length(n)
-  org = [1,1]
+def halvsies(arr)
+  arr_size = arr.size
+  midpoint = arr_size / 2
+  midpoint += 1 if arr_size.odd?
 
-  loop do
-    new_num = org[-1] + org[-2]
-    org << new_num
-    break if new_num.to_s.size == n
-  end
-  org.size
+  arr1 = arr[0, midpoint]
+  arr2 = arr[midpoint, midpoint]
+  [arr1, arr2]
 end
 
-p find_fibonacci_index_by_length(2) == 7          # 1 1 2 3 5 8 13
-p find_fibonacci_index_by_length(3) == 12         # 1 1 2 3 5 8 13 21 34 55 89 144
-p find_fibonacci_index_by_length(10) == 45
-p find_fibonacci_index_by_length(100) == 476
-p find_fibonacci_index_by_length(1000) == 4782
-# find_fibonacci_index_by_length(10000) == 47847
-# You may assume that the argument is always greater than or equal to 2.
+p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+p halvsies([5]) == [[5], []]
+p halvsies([]) == [[], []]
