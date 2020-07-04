@@ -1,30 +1,19 @@
-# fizzbuzz
-# Write a method that takes two arguments:
-#the first is the starting number, and the second is the ending number.
-# Print out all numbers between the two numbers,
-# except if a number is divisible by 3, print "Fizz",
-# if a number is divisible by 5, print "Buzz",
-# and finally if a number is divisible by 3 and 5, print "FizzBuzz".
+def reversed_number(num)
 
-# Example:
+  reversed_arr = num.to_s.chars.reverse.map {|char| char.to_i}
+  size = reversed_arr.size
 
+  highest_zero = 10 ** size
 
-def fizzbuzz(num1, num2)
-
-  (num1..num2).to_a.map do |num|
-
-    if num % 3 == 0 && num % 5 == 0
-      "FizzBuzz"
-    elsif num % 5 == 0
-      "Buzz"
-    elsif num % 3 == 0
-      "Fizz"
-    else
-      num
-
-    end
-  end
-
+  reversed_arr.map do |num|
+    highest_zero /= 10
+    num * highest_zero
+  end.reduce(:+)
 end
 
-p fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
+p reversed_number(12345)# == 54321
+p reversed_number(12213)# == 31221
+p reversed_number(456)# == 654
+p reversed_number(12000)# == 21 # No leading zeros in return value!
+p reversed_number(12003)# == 30021
+p reversed_number(1) #== 1
