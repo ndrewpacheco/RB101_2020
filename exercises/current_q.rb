@@ -1,19 +1,26 @@
-def reversed_number(num)
+# Write a method that takes a non-empty string argument,
+# and returns the middle character or characters of the argument.
+# If the argument has an odd length, you should return exactly one character.
+# If the argument has an even length, you should return exactly two characters.
 
-  reversed_arr = num.to_s.chars.reverse.map {|char| char.to_i}
-  size = reversed_arr.size
+# Examples:
 
-  highest_zero = 10 ** size
+def center_of(str)
+  size = str.size
+  mid_char = size / 2
 
-  reversed_arr.map do |num|
-    highest_zero /= 10
-    num * highest_zero
-  end.reduce(:+)
+  if size.odd?
+    #return mid_char with 1 character
+    str[mid_char]
+  else
+    #return mid_char with 2 characters
+  # return value middle char(s) of the arg
+    str[mid_char - 1, 2]
+  end
 end
 
-p reversed_number(12345)# == 54321
-p reversed_number(12213)# == 31221
-p reversed_number(456)# == 654
-p reversed_number(12000)# == 21 # No leading zeros in return value!
-p reversed_number(12003)# == 30021
-p reversed_number(1) #== 1
+p center_of('I love ruby') == 'e'
+p center_of('Launch School') == ' '
+p center_of('Launch') == 'un'
+p center_of('Launchschool') == 'hs'
+p center_of('x') == 'x'
