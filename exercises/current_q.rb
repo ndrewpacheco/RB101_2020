@@ -1,46 +1,29 @@
-# Double Doubles
-# A double number is a number with an even number of digits whose left-side digits
-# are exactly the same as its right-side digits.
+# Write a method that takes a string as an argument,
+# and returns an Array that contains every word from the string,
+# to which you have appended a space and the word length.
 
-# For example, 44, 3333, 103103, 7676 are all double numbers.
-# 444, 334433, and 107 are not.
+# You may assume that words in the string are separated by exactly one space,
+# and that any substring of non-space characters is a word.
 
-# Write a method that returns 2 times the number provided as an argument,
-# unless the argument is a double number; double numbers should be returned as-is.
+# Examples
+def word_lengths(str)
 
-# Examples:
 
-def double_number?(num)
-  arr = num.to_s.chars
-  arr_size = arr.size
+  str.split.map do |word|
 
-  if arr_size.even?
-
-    arr2 = arr.slice!(0, arr.size / 2)
-    return true if arr == arr2
+    "#{word} #{word.size}"
   end
+  # arr with each word of string, and size beside it
 
-  false
 end
+p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
 
-def twice(num)
+p word_lengths("baseball hot dogs and apple pie") ==
+  ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
 
-  # if num isn't a double number, return num * 2
-  # if it is a double number, return num
-  return num if double_number?(num)
-  num * 2
-end
+p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
 
-p twice(37) == 74
-p twice(44) == 44
-p twice(334433) == 668866
-p twice(444) == 888
-p twice(107) == 214
-p twice(103103) == 103103
-p twice(3333) == 3333
-p twice(7676) == 7676
-p twice(123_456_789_123_456_789) == 123_456_789_123_456_789
-p twice(5) == 10
+p word_lengths("Supercalifragilisticexpialidocious") ==
+  ["Supercalifragilisticexpialidocious 34"]
 
-# Note: underscores are used for clarity above. Ruby lets you use underscores when writing long numbers; however, it does not print the underscores when printing long numbers. Don't be alarmed if you don't see the underscores when running your tests.
-
+p word_lengths("") == []
